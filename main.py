@@ -1,56 +1,16 @@
-from typing import List
+from tictactoe import TicTacToe
 
-board = [
-    ['a', 'x', 'a'],
-    ['a', 'a', 'x'],
-    ['x', 'x', 'a'],
-]
 
-test_board = [
-    ['1', '2', '3'],
-    ['4', '5', '6'],
-    ['7', '8', '9']
-]
+def main():
+    tic_tac_toe = TicTacToe()
 
-def pprint(matrix: List[List[str]]):
-    for row in matrix:
-        print(' '.join(row))
-    print()
+    while not tic_tac_toe.game_over:
+        player_input = input('Type your next move: ')
+        moves = player_input.split()
+        x = int(moves[0])
+        y = int(moves[1])
 
-def check_repeating_elements(lists: List[List[str]]):
-    for current_list in lists:
-        is_filled = current_list[0] != ''
-        all_elements_equal = len(set(current_list)) == 1
+        tic_tac_toe.play(x, y)
 
-        if is_filled and all_elements_equal:
-            return current_list[0]
-    return None
-
-def check_rows(board: List[List[str]]):
-        return check_repeating_elements(board)
-
-def check_columns(board: List[List[str]]):
-    size = len(board)
-
-    columns = [
-        [
-            board[row][col] for row in range(size)
-        ] for col in range(size)
-    ]
-
-    return check_repeating_elements(columns)
-
-def check_diagonals(board: List[List[str]]):
-    size = len(board)
-
-    diagonals = [
-        [board[index][index] for index in range(size)],
-        [board[index][size - index - 1] for index in range(size)]
-    ]
-
-    return check_repeating_elements(diagonals)
-
-def check_winner(board: List[List[str]] = None):
-    return check_rows(board) or check_diagonals(board) or check_columns(board)
-
-print(check_winner(board))
+if __name__ == '__main__':
+    main()
